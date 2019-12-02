@@ -1,7 +1,8 @@
 {
   "name": "light-state-manager",
-  "version": "0.0.2",
-  "main": ".src/index.tsx",
+  "version": "0.0.3",
+  "main": "index.js",
+  "types": "./lib/index.d.ts",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -13,10 +14,7 @@
     "typescript": "3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build" : "tsc"
   },
   "browserslist": {
     "production": [

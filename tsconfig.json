@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ESNEXT",
-    "module": "ESNext",
+    "outDir": "./lib",
+    "target": "es5",
+    "module": "commonjs",
     "lib": [
       "dom",
       "es2015",
       "es2016"
     ],
-    "allowJs": true,
-    "checkJs": false,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "removeComments": false,
-    "noEmit": true,
+    "declaration": true,
+    "jsx": "react",
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
@@ -29,8 +26,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "typeRoots": [
-      "./node_modules/@types",
-      "./global.d.ts"
+      "./node_modules/@types"
     ],
     "importHelpers": true,
     "reactNamespace": "",
@@ -40,9 +36,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": false
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
