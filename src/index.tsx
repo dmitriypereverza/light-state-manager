@@ -1,39 +1,33 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 
-function useForceUpdate() {
+export function useForceUpdate() {
   const [, updateState] = useState();
   return useCallback(() => updateState({}), []);
 }
 
 export class StoreContext<State extends Record<string, any>, Actions> {
   static connectContexts(
-    storeContexts: StoreContext<any, any>[],
+    storeContexts: [StoreContext<any, any>, string][],
     Component: React.FC<any>,
   ) {
     let current = Component;
-    storeContexts.forEach(storeContext => {
-      current = storeContext.provideContext(current);
+    storeContexts.forEach(([storeContext, name]) => {
+      current = storeContext.provideContext(current, name);
     });
     return current;
   }
 
   private readonly context: React.Context<any>;
-  private readonly Provider: React.FunctionComponent<{ children: any }>;
+  private readonly Provider: React.FC<{ children: any }>;
   private readonly actions: any;
 
-  constructor({
-    initialState,
-    actions,
-  }: {
-    initialState: State;
-    actions: Actions;
-  }) {
+  constructor(initialState: State, actions: Actions) {
     this.context = React.createContext(null);
     this.actions = actions;
 
     const storeInitialState = Object.assign({}, initialState, actions);
 
-    const Provider = ({ children }) => {
+    this.Provider = ({ children }) => {
       const state = React.useRef(storeInitialState);
       const update = useForceUpdate();
 
@@ -65,19 +59,20 @@ export class StoreContext<State extends Record<string, any>, Actions> {
         </this.context.Provider>
       );
     };
-    this.Provider = Provider;
   }
 
   getState() {
     return React.useContext<Actions & State>(this.context);
   }
 
-  provideContext<T>(Component: React.FC<T>): React.FC<T> {
-    return props => (
+  provideContext<T>(Component: React.FC<T>, name: string): React.FC<T> {
+    const cmp = props => (
       <this.Provider>
         <Component {...props} />
       </this.Provider>
     );
+    cmp.displayName = name;
+    return cmp;
   }
 }
 
@@ -97,7 +92,7 @@ export class Action<State> {
       },
       data: CallerData,
     ) => CallerResult,
-  ): unknown extends CallerData
+  ): unknown extends Required<CallerData>
     ? () => CallerResult
     : (data: CallerData) => CallerResult {
     // @ts-ignore
@@ -112,3 +107,14 @@ export type LoadingState<
   LOADING extends string = "loading",
   ERROR extends string = "error"
 > = { [T in LOADING]: boolean } & { [T in ERROR]: string };
+
+export function pureConnect<P extends object, G extends Partial<P>>(
+  Cmp: FC<P>,
+  callback: () => G,
+) {
+  const contextProps = callback();
+  const MemoCmp = React.memo(Cmp);
+  return function(props: Omit<P, keyof G>) {
+    return <MemoCmp {...(props as P)} {...(contextProps as G)} />;
+  };
+}

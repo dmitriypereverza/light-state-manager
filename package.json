@@ -4,14 +4,16 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
+    "awsome-data-filter": "0.0.16",
     "react": "^16.12.0"
   },
   "devDependencies": {
     "@types/react": "16.9.13",
     "prettier": "1.18.2",
-    "typescript": "3.7.2"
+    "typescript": "3.7.2",
+    "tslib": "^1.10.0"
   },
   "scripts": {
-    "build" : "tsc"
+    "build": "tsc"
   }
 }
