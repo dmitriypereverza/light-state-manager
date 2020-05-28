@@ -1,0 +1,16 @@
+{
+  "name": "light-state-manager",
+  "version": "0.1.3",
+  "homepage": "https://github.com/dmitriypereverza/light-state-manager",
+  "keywords": ["state manager", "state", "redux", "react", "store"],
+  "author": {
+    "name": "Dmitriy Perevera",
+    "email": "disel920@gmail.com",
+    "url": "https://github.com/dmitriypereverza/"
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "dependencies": {
+    "react": "^16.12.0"
+  }
+}

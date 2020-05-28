@@ -11,6 +11,11 @@
 # production
 /build
 
+# npm publish
+/public
+!public/package.json
+!public/README.md
+
 # misc
 .DS_Store
 .env.local
