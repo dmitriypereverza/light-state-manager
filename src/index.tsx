@@ -109,7 +109,7 @@ export type LoadingState<
 > = { [T in LOADING]: boolean } & { [T in ERROR]: string };
 
 export function pureConnect<P extends object, G extends Partial<P>>(
-  callback: (props?: P) => G,
+  callback: (props?: object & P) => G,
   Cmp: FC<P>,
 ) {
   const MemoCmp = React.memo(Cmp);
