@@ -29,7 +29,7 @@ export default new StoreContext(
 });
 ```
 
-В поле `actions` мы указами `setCounter` для установки значений в нашем модуле. Создавать каждый `action` можно с помощью конструкции `new Action<StateInterface>().create` где `StateInterface` интейфейс стейта нашего модуля.
+В поле `actions` мы указами `setCounter` для установки значений в нашем модуле. Создавать каждый `action` можно с помощью конструкции `new Action<StateInterface>().create` где `StateInterface` интерфейс стейта нашего модуля.
 
 ```typescript jsx
 import { Action } from "light-state-manager";
